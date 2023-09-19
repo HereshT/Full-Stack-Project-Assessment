@@ -8,7 +8,16 @@ let videos = [];
 
 // GET "/"
 app.get("/", (req, res) => {
-  res.send(videos);
+  const order = req.query.order;
+  let orderedVideos = [...videos];
+
+  if (order === "asc") {
+    orderedVideos.sort((a, b) => a.rating - b.rating);
+  } else {
+    orderedVideos.sort((a, b) => b.rating - a.rating);
+  }
+
+  res.send(orderedVideos);
 });
 
 // POST "/"
